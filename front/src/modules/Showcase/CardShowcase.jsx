@@ -6,25 +6,44 @@ import axios from 'axios'
 
 const CardShowcase=()=>{
     
-    const [product,setProduct]=useState()
-    
+    const [product,setProduct]=useState([])
+    console.log('producto ',product)
     useEffect(() => {
         const fetchResults = async () => {
-            
-        try {
-            const response = await axios.get('http://localhost:8080');
-            console.log("🚀 ~ file: CardShowcase.jsx:14 ~ fetchResults ~ response:", response)
-        
-        } catch (error) {
-            console.error(error);
-
-        }
-    };
+            try {
+                const response= await axios.get('http://localhost:8080/')
+                console.log("🚀 ~ file: CardShowcase.jsx:15 ~ fetchResults ~ response:", response)
+                const data=response.data.response
+                console.log("🚀 ~ file: CardShowcase.jsx:17 ~ fetchResults ~ data:", data)
+                setProduct(data)
+            } catch (error) {
+            console.log("🚀 ~ file: CardShowcase.jsx:19 ~ fetchResults ~ error:", error)
+            }
+        };
         fetchResults();
     }, []);
+   /* 
+    useEffect(() => {
+        const fetchResults = async () => {
+            try {
+                 await axios.get('http://localhost:8080/')
+                 .then(response=>{
+                    console.log(response.data.response)
+                    setProduct(response.data.response)
+                 })
+                 .catch(e => {
+                     console.log("🚀 ~ file: CardShowcase.jsx:18 ~ fetchResults ~ e:", e)
+                 })
+            } catch (error) {
+            console.log("🚀 ~ file: CardShowcase.jsx:19 ~ fetchResults ~ error:", error)
+            }
+        };
+        fetchResults();
+    }, []);
+    */
     return(
         
-        <Link to="/">
+        <Link to="#">
             <Row>
                 <Col md={4}>
                     <img alt="termo" src={require(`./images/termo.jpg`)} height={'200px'} width={'200px'}></img>        
@@ -57,13 +76,10 @@ const CardShowcase=()=>{
                                         <td>Material</td>
                                         <td>Insulation</td>
                                     </tr>
-
                                     <tr style={{fontSize:'14px'}}>
-                                    
                                         <td>ProductColor</td>
                                         <td>ProductMaterial</td>
                                         <td>InsulationType</td>
-
                                     </tr>
                                 
                                 </tbody>

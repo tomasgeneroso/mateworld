@@ -26,9 +26,14 @@ function NavBar() {
               style={{ maxHeight: '100px' , marginLeft:'40%'}}
               navbarScroll
             >   
-              <Nav.Link style={{ paddingLeft: '30px' }} href="#action2"><i className="bi bi-bag-fill"></i></Nav.Link>
+              {/*SACAR CUANDO SE LOGUEE */}
+              <Nav.Link style={{ paddingLeft: '30px' }} href="/login">LOGIN</Nav.Link>
+              
+              <Nav.Link style={{ paddingLeft: '30px' }} href="#action2"><span className="material-icons"></span></Nav.Link> 
               {/*PONER CONTADOR DE PRODUCTOS */}
-              <NavDropdown style={{ paddingLeft: '30px' }} title="LOG IN" id="navbarScrollingDropdown">
+              
+              {/*CUANDO ESTA LOGUEADO MOSTRAR EL PROFILE  */}
+              <NavDropdown style={{ paddingLeft: '30px' }} title="MY PROFILE" id="navbarScrollingDropdown">
                 <NavDropdown.Item href="#action3">My shipment</NavDropdown.Item>
                 <NavDropdown.Item href="#action4">Settings</NavDropdown.Item>
                 <NavDropdown.Divider />
@@ -38,13 +43,13 @@ function NavBar() {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      <Navbar expand="lg" className="bg-body-tertiary">
+      <Navbar expand="lg" className="bg-body-tertiary bg-light">
         <Container fluid>
           <Navbar.Toggle aria-controls="navbarScroll" />
           <Navbar.Collapse id="navbarScroll">
             <Nav
               className="m-auto my-2 "
-              style={{ maxHeight: '100px', textAlign:'center' }}
+              style={{ maxHeight: '100px', textAlign:'center', backgroundColor:'' }}
               navbarScroll
             >
               <Nav.Link style={{ paddingLeft: '30px' }} href="Showcase">THERMOS</Nav.Link>

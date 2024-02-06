@@ -1,4 +1,6 @@
 import User from "./Schema/usersModel.js";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtocken"
 
 const  showUsers=async ()=>{
     try {
@@ -27,10 +29,22 @@ const  addUser=async (data)=>{
         if (!data.username || !data.password || !data.name || !data.surname || !data.birthday  || !data.address || !data.postalCode) {
             res.status(400).send({message: 'Faltan datos, volve atras'});
         } else {
+            console.log("🚀 ~ file: usersController.js:34 ~ addUser ~ data:", data)
+            
             let userE= await User.getUser(data)
-            if(userE) return true 
+            console.log("🚀 ~ file: usersController.js:33 ~ addUser ~ userE:", userE)
+            
+            if(userE) return res.status(409).json("User already exists!"); 
+            //if not
+            //Hash the password and create a user
+            const salt = bcrypt.genSaltSync(10);
+            const hash = bcrypt.hashSync(data.password, salt);
+            data.password=hash
+
             let response = await User.addUser(data)
-            return response 
+            console.log("🚀 ~ file: usersController.js:42 ~ addUser ~ response:", response)
+            
+            return res.status(200).json("User has been created."); 
         }
     } catch (error) {
         console.log('error en controllerUsers, adduser',error)

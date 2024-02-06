@@ -31,6 +31,14 @@ import Login from "./pages/Login/Login.jsx";
           path: "/Showcase",
           element: <Showcase />,
          },
+        {
+          path: "/Login",
+          element: <Login />,
+         },
+        {
+          path: "/Register",
+          element: <Register />,
+         },
     
      ],
     },

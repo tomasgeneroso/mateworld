@@ -10,7 +10,12 @@ const app=express()
 app.use(express.json());
 //app.use(express.urlencoded({ extended: true }));
 const PORT=process.env.PORT 
-
+import cors from 'cors'
+app.use(cors({
+  origin: '*',
+  methods: '*',
+  credentials: true,
+}));
 import router from './routers/router.js'
 app.use('/',router)
 
