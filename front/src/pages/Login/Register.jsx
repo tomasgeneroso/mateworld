@@ -26,11 +26,10 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
       await axios.post("/register", inputs);
       navigate("/login");
-    } catch (err) {
+    }catch(err){
       setErr(err.response.data);
     }
   };

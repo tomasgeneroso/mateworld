@@ -6,7 +6,7 @@ import usersController from './usersController.js'
 
 usersRouter.get('/', usersController.getUser);
 
-usersRouter.post('/', usersController.addUser);
+usersRouter.post('/register', usersController.addUser);
 
 //usersRouter.get('/showUser',usersController.deleteUser)
 usersRouter.post('/moduser',usersController.modifyUser)

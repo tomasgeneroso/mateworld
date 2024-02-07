@@ -5,7 +5,7 @@ import productsController from "../DB/components/products/productsController.js"
 
 
 router.get('/',Controller.showUsers)
-router.post('/adduser',Controller.addUsers)
+router.post('/register',Controller.addUsers)
 router.post('/moduser',Controller.modifyUser)
 
 //CAMBIAR A PRODUCTS/SHOW PRODUCTSSS

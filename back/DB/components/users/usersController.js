@@ -1,6 +1,6 @@
 import User from "./Schema/usersModel.js";
 import bcrypt from "bcryptjs";
-import jwt from "jsonwebtocken"
+import jwt from "jsonwebtoken"
 
 const  showUsers=async ()=>{
     try {

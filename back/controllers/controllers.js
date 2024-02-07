@@ -27,13 +27,15 @@ const getUser=async (req,res)=>{
 const addUsers=async (req,res)=>{
     try {
         let data=req.body
+        console.log("🚀 ~ file: controllers.js:30 ~ addUsers ~ data:", data)
         if(!data) return res.status(400).json({message:"Insuficient data"})
         let response=await usersController.addUser(data)
-        if(response==true) res.redirect('/')
+        console.log("🚀 ~ file: controllers.js:33 ~ addUsers ~ response:", response)
+        if(response) return res.status(200).json({message:"User added succesfully"})
         return response
     } catch (error) {
         console.log("🚀 Controller ~ addUser ~ error:", error)
-        
+        return error
     }
 }
 
