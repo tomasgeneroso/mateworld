@@ -4,8 +4,10 @@ import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-
+import { AuthContext } from "../../context/AuthContext";
+import { useContext } from 'react';
 function NavBar() {
+  const {currentUser,logout }=useContext(AuthContext)
   return (
     <>
       <Navbar expand="lg" className="bg-body-tertiary">
@@ -27,18 +29,26 @@ function NavBar() {
               navbarScroll
             >   
               {/*SACAR CUANDO SE LOGUEE */}
-              <Nav.Link style={{ paddingLeft: '30px' }} href="/login">LOGIN</Nav.Link>
+              {currentUser ? 
+              (
+                
+                <NavDropdown style={{ paddingLeft: '30px' }} title="MY PROFILE" id="navbarScrollingDropdown">
+                <NavDropdown.Item href="#action3">My shipments</NavDropdown.Item>
+                <NavDropdown.Item href="#action4">Settings</NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item onClick={logout}>Log Out</NavDropdown.Item>
+              </NavDropdown>
+              ) :
+              (
+                <Nav.Link style={{ paddingLeft: '30px' }} href="/login">LOGIN</Nav.Link>
+                
+              )}
               
               <Nav.Link style={{ paddingLeft: '30px' }} href="#action2"><span className="material-icons"></span></Nav.Link> 
               {/*PONER CONTADOR DE PRODUCTOS */}
               
               {/*CUANDO ESTA LOGUEADO MOSTRAR EL PROFILE  */}
-              <NavDropdown style={{ paddingLeft: '30px' }} title="MY PROFILE" id="navbarScrollingDropdown">
-                <NavDropdown.Item href="#action3">My shipment</NavDropdown.Item>
-                <NavDropdown.Item href="#action4">Settings</NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item href="#action5">Log Out</NavDropdown.Item>
-              </NavDropdown>
+              
             </Nav>
           </Navbar.Collapse>
         </Container>

@@ -1,5 +1,6 @@
-import productsController from '../DB/components/products/productsController.js'
-import usersController from '../DB/components/users/usersController.js'
+import productsController from '../components/products/productsController.js'
+import usersController from '../components/users/usersController.js'
+import dashboardController from '../components/dashboard/dashboardController.js'
 
 const showUsers=async (req,res)=>{
     try {
@@ -10,35 +11,53 @@ const showUsers=async (req,res)=>{
         console.log('error haciendo tal cosas ',error)
     } 
 }
-
-const getUser=async (req,res)=>{
+const register=async (req,res)=>{
     try {
         let data=req.body
-        //console.log("🚀 ~ file: controllers.js:13 ~ Controller ~ getUser ~ data:", data)
-        if(!data) return res.status(400).json({message:"Insuficient data"})
-        let response=await usersController.getUser(data)
-        //console.log("🚀 ~ file: controllers.js:9 ~ Controller ~ getUser ~ response:", response)
-        if(response==true) res.redirect('/')
-        return response
+        if (!data.username || !data.password || !data.name || !data.birthday || !data.country || !data.city  || !data.address || !data.postalCode) {
+            return {error:'Data left',success:false}
+        } else {
+            let response=await usersController.register(data)
+            
+            if(response.success==true){
+                //return res.status(200).json({message:'User added',success:true,userAdded:response})
+                return res.status(200).json({message:'User added',success:true})
+            }
+            //!!MEJORAR
+            if (response.error='Already exists') res.redirect('/register') 
+            return res.status(400).json({response})
+        }
     } catch (error) {
-        console.log("🚀 Controller ~ getUser ~ error:", error)
+        console.log("🚀 Controller ~ register ~ error:", error)
+        return res.status(400).json({error:error})
     }
 }
-const addUsers=async (req,res)=>{
+const login=async (req,res)=>{
     try {
         let data=req.body
-        console.log("🚀 ~ file: controllers.js:30 ~ addUsers ~ data:", data)
-        if(!data) return res.status(400).json({message:"Insuficient data"})
-        let response=await usersController.addUser(data)
-        console.log("🚀 ~ file: controllers.js:33 ~ addUsers ~ response:", response)
-        if(response) return res.status(200).json({message:"User added succesfully"})
-        return response
+        if (!data.username || !data.password) {
+            return res.status(400).json({message:"Invalid credentials",success:false}).redirect('/login')
+        } else {
+            //console.log("🚀 ~ file: controllers.js:13 ~ Controller ~ getUser ~ data:", data)  
+            let response=await usersController.login(data)
+            if(response.success==true) {
+                res.status(200).json(response)
+                return res
+            }else{
+                return res.status(400).json(response).redirect('/login')
+            }
+        }
     } catch (error) {
-        console.log("🚀 Controller ~ addUser ~ error:", error)
-        return error
+        console.log("🚀 ~ file: controllers.js:55 ~ login ~ error:", error)
+        res.status(400).json({error:error,success:false}).redirect('/login')
     }
 }
-
+const logout=async (req,res)=>{
+    res.clearCookie("user",{
+        sameSite:"none",
+        secure:true
+      }).status(200).json("User has been logged out.")
+}
 const modifyUser=async (req,res)=>{
     try {
         let data=req.body
@@ -63,7 +82,6 @@ const showProducts=async (req,res)=>{
         console.log('error haciendo tal cosas ',error)
     } 
 }
-
 const getProduct=async (req,res)=>{
     try {
         let data=req.body
@@ -90,7 +108,6 @@ const addProduct=async (req,res)=>{
         
     }
 }
-
 const modifyProduct=async (req,res)=>{
     try {
         let data=req.body
@@ -105,43 +122,19 @@ const modifyProduct=async (req,res)=>{
     }
 }
 
-
-/*
-class Controller{
-    async showUsers() {
-        try {
-            let response=await usersController.showUsers()
-            return response
-        } catch (error) {
-            console.log('error haciendo tal cosas ',error)
-        }   
-    }
-    async getUser (req,res){
-        try {
-            let data=req.body
-            console.log("🚀 ~ file: controllers.js:13 ~ Controller ~ getUser ~ data:", data)
-            if(!data) return res.status(400).json({message:"Insuficient data"})
-            let response=await usersController.getUser(data)
-            console.log("🚀 ~ file: controllers.js:9 ~ Controller ~ getUser ~ response:", response)
-            if(response==true) res.redirect('/')
-            return response
-        } catch (error) {
-            console.log("🚀 Controller ~ getUser ~ error:", error)
-            
+const showDashboard=async (req,res)=>{
+    const user=req.cookies.user
+    if(user){
+        const dashboard=dashboardController.showDashboard()
+        console.log("🚀 ~ file: controllers.js:129 ~ showDashboard ~ dashboard:", dashboard)
+        if(dashboard.success=true){
+            return dashboard
+        }else{
+            //!refactorizar
+            return {message:'Success false ',dashboard:dashboard}
         }
-    }
-    async addUser(req,res){
-        try {
-            let data=req.body
-            if(!data) return res.status(400).json({message:"Insuficient data"})
-            let response=await userController.addUser(data)
-            if(response==true) res.redirect('/')
-            return response
-        } catch (error) {
-            console.log("🚀 Controller ~ addUser ~ error:", error)
-            
-        }
+    }else{
+        return res.status(400).json(dashboard).redirect('/login')
     }
 }
- */
-export default {addUsers,showUsers,getUser,modifyUser,addProduct,showProducts,getProduct,modifyProduct}
+export default {register,showUsers,login,logout,modifyUser,addProduct,showProducts,getProduct,modifyProduct,showDashboard}

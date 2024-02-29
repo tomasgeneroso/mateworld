@@ -20,16 +20,28 @@ const Register = () => {
 
   const navigate = useNavigate();
 
-  const handleChange = (e) => {
-    setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  const handleChange = async (e) => {
+    
+    try {
+      e.preventDefault();
+      setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+
+    } catch (error) {
+      console.log("🚀 ~ file: Register.jsx:29 ~ handleChange ~ error:", error)
+      
+    }
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
     try {
-      await axios.post("/register", inputs);
+      e.preventDefault()
+      console.log(inputs)
+      const responseHadleSubmit=await axios.post('http://localhost:8081/register', inputs);
+      console.log("🚀 ~ file: Register.jsx:40 ~ handleSubmit ~ responseHadleSubmit:", responseHadleSubmit)
+      console.log("🚀 ~ file: Register.jsx:38 ~ handleSubmit ~ responseHadleSubmit:", responseHadleSubmit)
       navigate("/login");
     }catch(err){
+      console.log("🚀 ~ file: Register.jsx:34 ~ handleSubmit ~ err:", err)
       setErr(err.response.data);
     }
   };
@@ -69,6 +81,17 @@ const Register = () => {
                 <Form.Group className="my-4" controlId="formBasicBirthday" >
                   <Form.Label>Birthday</Form.Label>
                   <Form.Control type="Birthday" placeholder="Birthday" name="birthday" onChange={handleChange}/>
+                </Form.Group>
+
+                <Form.Group className="my-4" controlId="formBasicCountry" >
+                  <Form.Label>Country</Form.Label>
+                  <Form.Control type="Contry" placeholder="Country" name="country"onChange={handleChange}/>
+                </Form.Group>
+              </Col>
+              <Col>
+                <Form.Group className="my-4" controlId="formBasicBirthday" >
+                  <Form.Label>City</Form.Label>
+                  <Form.Control type="City" placeholder="City" name="city" onChange={handleChange}/>
                 </Form.Group>
 
                 <Form.Group className="my-4" controlId="formBasicAddress" >
