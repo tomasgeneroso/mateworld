@@ -1,8 +1,8 @@
 import { Express } from "express";
 import usersController from "../users/usersController";
 
-const getDashboard=()=>{
+const showDashboard=()=>{
     return {message:'DASHBOARD',success:true}
 }
 
-export default getDashboard
+export default showDashboard
