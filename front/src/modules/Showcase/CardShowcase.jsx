@@ -56,7 +56,7 @@ const CardShowcase=()=>{
                             <Table className="DescripProdContainer" style={{textDecoration:'none'}} borderless size="sm">
                                 <tbody style={{textDecoration:'none'}}  >
                                     <tr style={{fontSize:'16px',textDecoration:'none'}}>
-                                    <td>Title</td>
+                                    <td>Name</td>
                                     <td>Trademark</td>
                                     <td>Capacity</td>
                                     </tr>

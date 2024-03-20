@@ -1,5 +1,5 @@
 import React, {useState} from "react"; 
-import {Carousel,Image} from 'react-bootstrap';
+import {Carousel,Container,Image} from 'react-bootstrap';
 import Article from "./Article.jsx";
 const data = [
   {
@@ -34,7 +34,7 @@ function HomeBody() {
   </style>
 
   return (
-    <div>
+    <Container>
     <Carousel activeIndex={index} onSelect={handleSelect}>
        {data.map((slide, i) => {
         return (
@@ -53,7 +53,7 @@ function HomeBody() {
     
       <Article />
 
-    </div>
+    </Container>
 
   );
 }

@@ -33,8 +33,8 @@ function NavBar() {
               (
                 
                 <NavDropdown style={{ paddingLeft: '30px' }} title="MY PROFILE" id="navbarScrollingDropdown">
-                <NavDropdown.Item href="#action3">My shipments</NavDropdown.Item>
-                <NavDropdown.Item href="#action4">Settings</NavDropdown.Item>
+                <NavDropdown.Item href="/Dashboard">Dashboard & Settings</NavDropdown.Item>
+                
                 <NavDropdown.Divider />
                 <NavDropdown.Item onClick={logout}>Log Out</NavDropdown.Item>
               </NavDropdown>

@@ -2,41 +2,38 @@ import Product from "./Schema/productsModel.js";
 
 
 //MODELO A SEGUIR :9
-const  showProduct=async ()=>{
+const  getProduct=async (data)=>{
     try {
-        let response=await Product.showProduct()
-        return res.status(200).json(response)
+        if (!data.name) {
+            res.status(400).send({message: 'Faltan datos, volve atras',success:true});
+        }
+        let response=await Product.getProduct(data)
+        return response
     } catch (error) {
         console.log('error haciendo tal cosas ',error)
         res.status(500).send(response)
     }  
 }
 
-const  getProduct=async (data)=>{
+const  getAllProducts=async (data)=>{
     try {
-        if (!data.username || !data.password || !data.name || !data.surname || !data.birthday  || !data.address || !data.postalCode) {
-            res.status(400).send({message: 'Faltan datos, volve atras'});
-        }
-        //let data = await user.validateLogin(req.body.email,req.body.password)
-        let response=await Product.getUser(data)
+        let response=await Product.getAllProducts(data)
         return response
         
     } catch (error) {
         console.log("🚀 ~ file: controllerUsers.js ~ line 12 ~ getUser ~ error", error)
+        return {message:'error',error:error}
     }
 }
 const  addProduct=async (data)=>{
     try {
-        if (!data.productname || !data.password || !data.name || !data.surname || !data.birthday  || !data.address || !data.postalCode) {
-            res.status(400).send({message: 'Faltan datos, volve atras'});
-        } else {
-            let productE= await Product.getProduct(data)
-            if(productE) return true 
-            let response = await Product.addProduct(data)
-            return response 
-        }
+      
+        let response = await Product.addProduct(data)
+        return response  
+        
     } catch (error) {
         console.log("🚀 ~ file: productsController.js:36 ~ addProduct ~ error:", error)
+        return {message:'error',error:error}
     }
 }
 
@@ -53,4 +50,4 @@ const modifyProduct=async (data)=>{
     }
 }
 //add delete product
-export default {addProduct,getProduct,showProduct,modifyProduct}
+export default {addProduct,getAllProducts,getProduct,modifyProduct}

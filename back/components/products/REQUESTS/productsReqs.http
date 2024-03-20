@@ -1,0 +1,19 @@
+# POST User by id
+
+POST http://localhost:8081/addproduct HTTP/1.1
+Content-Type: application/json
+
+
+{
+  "brand": "stanley",
+  "name": "thermos stanley white",
+  "quantity": "{1,L}",
+  "description":"this is a white thermos",
+  "price":"100",
+  "stock":"{true,20}",
+  "color":"white",
+  "material":"alluminum",
+  "insulation":"Cooper"
+}
+
+###

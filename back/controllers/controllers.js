@@ -56,7 +56,9 @@ const logout=async (req,res)=>{
     res.clearCookie("user",{
         sameSite:"none",
         secure:true
-      }).status(200).json("User has been logged out.")
+    }).status(200).json("User has been logged out.")
+   
+
 }
 const modifyUser=async (req,res)=>{
     try {
@@ -82,31 +84,36 @@ const showProducts=async (req,res)=>{
         console.log('error haciendo tal cosas ',error)
     } 
 }
-const getProduct=async (req,res)=>{
+const getAllProducts=async (req,res)=>{
     try {
         let data=req.body
-        //console.log("🚀 ~ file: controllers.js:13 ~ Controller ~ getUser ~ data:", data)
-        if(!data) return res.status(400).json({message:"Insuficient data"})
-        let response=await productsController.getProduct(data)
-        //console.log("🚀 ~ file: controllers.js:9 ~ Controller ~ getUser ~ response:", response)
-        if(response) res.redirect('/')
-        return response
+        if (!data.name || !data.brand || !data.quantity || !data.price || !data.stock.available  || !data.color) {
+            res.status(400).send({message: 'Insuficient data',success:false});
+        }
+        
+        let response=await productsController.getAllProducts(data)
+        
+        if(response.success==true) return res.status(200).json(response)
+        return res.status(400).send({message: 'Something is wrong getting all the products',success:false});
     } catch (error) {
         console.log("🚀 ~ file: controllers.js:75 ~ getProduct ~ error:", error)
-        
+        return {message:'error getting all the products',error:error}
     }
 }
 const addProduct=async (req,res)=>{
     try {
         let data=req.body
-        if(!data) return res.status(400).json({message:"Insuficient data"})
+        console.log("🚀 ~ file: controllers.js:106 ~ addProduct ~ data:", data)
+        if (!data.name || !data.brand || !data.quantity || !data.price || !data.stock.available  || !data.color) {
+            res.status(400).send({message: 'Insuficient data',success:false});
+        }
         let response=await productsController.addProduct(data)
-        if(response==true) res.redirect('/')
-        return response
+        if(response.success==true) return res.status(200).json(response)
+        return res.status(400).send({message: 'Something is wrong adding products',success:false});
     } catch (error) {
         console.log("🚀 ~ file: controllers.js:87 ~ addProduct ~ error:", error)
-        
-    }
+        return {message:'error adding product',error:error}
+    }   
 }
 const modifyProduct=async (req,res)=>{
     try {
@@ -137,4 +144,4 @@ const showDashboard=async (req,res)=>{
         return res.status(400).json(dashboard).redirect('/login')
     }
 }
-export default {register,showUsers,login,logout,modifyUser,addProduct,showProducts,getProduct,modifyProduct,showDashboard}
+export default {register,showUsers,login,logout,modifyUser,addProduct,showProducts,getAllProducts,modifyProduct,showDashboard}

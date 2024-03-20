@@ -1,20 +1,22 @@
-import {React,useContext} from "react";
-import { AuthContext } from "../../context/AuthContext";
-import { useNavigate} from 'react-router-dom'
-function UserDashboard(){
-    const {currentUser} = useContext(AuthContext)
-    const navigate = useNavigate()
-    if (currentUser!=null){
+import React from "react";
+import Profile from "./components/Profile/Profile";
+import Shipments from "./components/Shipments/Shipments";
+import { Container, Row } from "react-bootstrap";
+export default function UserDashboard(){
+  
         return(
             <>
-                Dashboard
-                
+                <Container>
+                    <Row className="mt-2 mb-2">
+                        <Shipments/>
+                    </Row>
+                    <Row className="mt-2 mb-2">
+                        <Profile/>
+                    </Row>
+                        
+                </Container>
             </>
         )
-    }else{
-        navigate('/login')
-    }
    
 }
 
-export default UserDashboard

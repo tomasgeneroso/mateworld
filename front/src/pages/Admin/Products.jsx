@@ -1,9 +1,9 @@
 import {React,useContext, useEffect} from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { useNavigate} from 'react-router-dom'
-import UserDashboard from "../../modules/Dashboard/UserDashboard";
+import AdminProducts from "../../modules/Products/AdminProducts.jsx";
 
-const Dashboard=()=>{
+const Products=()=>{
     const {currentUser} = useContext(AuthContext)
     const navigate = useNavigate()
     useEffect(()=>{
@@ -15,11 +15,11 @@ const Dashboard=()=>{
     if (currentUser!==null){
         return(
             <>
-                <UserDashboard/>
+                <AdminProducts/>
             </>
         )
     }
    
 }
 
-export default Dashboard
+export default Products

@@ -8,7 +8,8 @@ import Showcase from "./pages/Showcase/Showcase"; //rebuild and reproduce with o
 import Register from "./pages/Login/Register.jsx";
 import Login from "./pages/Login/Login.jsx";
 import Dashboard from './pages/Dashboard/Dashboard.jsx'
-import AuthContextProvider from './context/AuthContext.jsx'
+import Products from './pages/Admin/Products.jsx'
+
   const Layout = () => {
   return (
       <>
@@ -41,9 +42,13 @@ import AuthContextProvider from './context/AuthContext.jsx'
           element: <Register />,
          },
          {
-           path: "/Dashboard",
+           path: "/dashboard",
            element: <Dashboard />,
-        },
+          },
+         {
+           path: "/admin/products",
+           element: <Products />,
+          },
         
          
      ],
@@ -57,7 +62,6 @@ import AuthContextProvider from './context/AuthContext.jsx'
    ]);
   
   const App = () =>{
-    
     return (
       <div className="app">
         <div className="container">

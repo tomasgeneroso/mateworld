@@ -13,8 +13,8 @@ router.post('/register',Controller.register)
 
 //PRODUCTS ROUTER
 router.get('/', productsController.getProduct);
-router.post('/addproduct', productsController.addProduct);
-router.get('/showproducts',productsController.showProduct)
+router.post('/admin/addproduct', productsController.addProduct);
+router.get('/getallproducts',productsController.getAllProducts)
 router.post('/modproduct',productsController.modifyProduct)
 
 //DASHBOARD ROUTER

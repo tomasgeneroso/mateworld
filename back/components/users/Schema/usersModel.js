@@ -29,7 +29,7 @@ class User{
             const correctPassword = bcrypt.compareSync(data.password,userE[0].password);
            
             if (correctPassword){
-                const token = auth.signToken(userE) //!!devolver token dentro de user 
+                const token = auth.signToken(userE) 
                 
                 userE[0].password = undefined; //I tried with other ways but always keep the password so I decided to use this script
                 
